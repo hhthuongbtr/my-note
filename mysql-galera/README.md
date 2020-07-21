@@ -1,0 +1,3 @@
+# MySQL-Galera
+1. Mysql galera cluster
+2. To do some things...
