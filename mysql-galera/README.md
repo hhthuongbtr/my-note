@@ -21,7 +21,9 @@ safe_to_bootstrap: 0
 ```
 Khi có nhiều hơn 1 node đang chạy và đồng bộ với nhau thì ```safe_to_bootstrap``` có giá trị 0
 Khi có duy nhất 1 node đang chạy thì ```safe_to_bootstrap``` có giá trị 1, cần tìm và start node này đầu tiên để đảm bảo đầy đủ dữ liệu, mysql chỉ cho phép start bootstrap node khi ```safe_to_bootstrap: 1```
-```seqno:   ``` Snapshot transaction cuối cùng được replicate, khi mới khởi tạo thì mặc định là -1, stop mysql sẽ có được giá trị transaction cuối cùng
+```seqno:   ``` Snapshot transaction cuối cùng được replicate, mặc định là -1 khi đang hoạt động, stop mysql sẽ có được giá trị transaction cuối cùng
+
+Note: Nếu bootstap không lên có thể do còn đụng port 4567, kill porocess sinh port 4567 đi sẽ bootstrap lại bình thường.
 
 4. Cơ chế replicate
 Mỗi node có 1 engine write-set  chạy đồng bộ thông qua port 4567
