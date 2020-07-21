@@ -31,3 +31,4 @@ Khi có transaction commit ở 1 host thì trước khi ghi host này sẽ multi
 5. Monitor
 ```wsrep_last_committed```
 Global transaction commit cuối cùng, Transaction id của các node khớp nhau sẽ đảm bảo dữ liệu thống nhất
+```wsrep_local_state_comment``` Trạng thái join cluster của host: Synced|Connecting|Join, trạng thái Synced là replicate tốt nhất
