@@ -23,8 +23,8 @@ Khi có nhiều hơn 1 node đang chạy và đồng bộ với nhau thì ```saf
 Khi có duy nhất 1 node đang chạy thì ```safe_to_bootstrap``` có giá trị 1, cần tìm và start node này đầu tiên để đảm bảo đầy đủ dữ liệu, mysql chỉ cho phép start bootstrap node khi ```safe_to_bootstrap: 1```
 
 4. Cơ chế replicate
-	Mỗi node có 1 engine write-set  chạy đồng bộ thông qua port 4567
-	Khi có transaction commit ở 1 host thì trước khi ghi host này sẽ multicast data mới lên group sau đó sẽ được write-set ghi dữ liệu mới cho mỗi node thuộc cluster
+Mỗi node có 1 engine write-set  chạy đồng bộ thông qua port 4567
+Khi có transaction commit ở 1 host thì trước khi ghi host này sẽ multicast data mới lên group sau đó sẽ được write-set ghi dữ liệu mới cho mỗi node thuộc cluster
 5. Monitor
-	```wsrep_last_committed```
-	Global transaction commit cuối cùng, Transaction id của các node khớp nhau sẽ đảm bảo dữ liệu thống nhất
+```wsrep_last_committed```
+Global transaction commit cuối cùng, Transaction id của các node khớp nhau sẽ đảm bảo dữ liệu thống nhất
