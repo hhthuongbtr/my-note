@@ -27,7 +27,7 @@ CONN_BLOCKED=$($COMMAND_PREFIX info clients | grep blocked_clients| awk '{split(
 echo "Blocked client(s): ${CONN_BLOCKED}"
 unset a
 REP_ROLE=$($COMMAND_PREFIX info replication | grep role| awk '{split($0,a,":"); print a[2]}')
-echo "Replication mode: ${REP_ROLE}"unset a
+echo "Replication mode: ${REP_ROLE}"
 if [[ $REP_ROLE == 'master' ]]; then
     unset a
     REP_CONNECTED_SLAVE=$($COMMAND_PREFIX info replication | grep connected_slaves | awk '{split($0,a,":"); print a[2]}')
