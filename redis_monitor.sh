@@ -1,11 +1,11 @@
 #!/bin/sh
-BINARY_CLI='/usr/bin/redis-cli'
-PASSWD=''
+BINARY_CLI='/server/redis/bin/redis-cli'
+PASSWD='WjS7MsZk9YjO!'
 HOST='127.0.0.1'
 SOCKET=''
 PORT=6379
 
-COMMAND_PREFIX="${BINARY_CLI} -a '${PASSWD}' -h ${HOST} -p ${PORT}"
+COMMAND_PREFIX="${BINARY_CLI} -a ${PASSWD} -h ${HOST} -p ${PORT}"
 
 # PID
 PID=$($COMMAND_PREFIX info server | grep process_id | awk '{split($0,a,":"); print a[2]}')
@@ -21,14 +21,14 @@ echo "Mem maximum: ${MEM_TOTAL}"
 #Monitor connection
 unset a
 CONN_CONNECTED=$($COMMAND_PREFIX info clients | grep connected_clients| awk '{split($0,a,":"); print a[2]}')
-echo "Connected client(s): ${CONN_BLOCKED}"
+echo "Connected client(s): ${CONN_CONNECTED}"
 unset a
 CONN_BLOCKED=$($COMMAND_PREFIX info clients | grep blocked_clients| awk '{split($0,a,":"); print a[2]}')
 echo "Blocked client(s): ${CONN_BLOCKED}"
 unset a
 REP_ROLE=$($COMMAND_PREFIX info replication | grep role| awk '{split($0,a,":"); print a[2]}')
 echo "Replication mode: ${REP_ROLE}"
-if [[ $REP_ROLE =~ 'master'* ]]; then
+if [[ ${REP_ROLE} =~ "master"* ]]; then
     unset a
     REP_CONNECTED_SLAVE=$($COMMAND_PREFIX info replication | grep connected_slaves | awk '{split($0,a,":"); print a[2]}')
     echo "Connected slave(s): ${REP_CONNECTD_SLAVE}"
