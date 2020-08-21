@@ -1,6 +1,6 @@
 #!/bin/sh
-BINARY_CLI='/server/redis/bin/redis-cli'
-PASSWD='WjS7MsZk9YjO!'
+BINARY_CLI='/usr/bin/redis-cli'
+PASSWD=''
 HOST='127.0.0.1'
 SOCKET=''
 PORT=6379
