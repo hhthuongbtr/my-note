@@ -29,4 +29,22 @@ Step 7: Start the mongod server
 ./mongod -quiet -f /etc/mongod.conf
 ```
 # Test
-
+Access mongod 
+```
+./mongo 127.0.0.1:27017
+```
+Create user
+```
+use database name
+db.createUser(
+   {
+     user: "Username",
+     pwd: "Password",
+     roles: [ "readWrite", "dbAdmin" ]
+   }
+)
+```
+Show databases
+```
+show collections
+```
