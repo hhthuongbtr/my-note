@@ -20,3 +20,5 @@ Step 7: Start the mongod server
 ```
 ./mongod -quiet -f /etc/mongod.conf
 ```
+# test
+
