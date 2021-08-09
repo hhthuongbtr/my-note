@@ -48,6 +48,26 @@ Show databases
 ```
 show collections
 ```
+# Loging
+Slow log
+```
+First, you must set up your profiling, specifying what the log level that you want. The 3 options are:
+
+0 - logger off
+1 - log slow queries
+2 - log all queries
+You do this by running your mongod deamon with the --profile and slowns (time in iliseconds) options:
+
+mongod --profile 2 --slowms 1000
+
+With this, the logs will be written to the system.profile collection, on which you can perform queries as follows:
+
+find all logs in some collection, ordering by ascending timestamp:
+db.system.profile.find( { ns:/<db>.<collection>/ } ).sort( { ts: 1 } );
+
+looking for logs of queries with more than 5 milliseconds:
+db.system.profile.find( {millis : { $gt : 5 } } ).sort( { ts: 1} );
+```
 # TUNING
 Memory tuning
 ```
@@ -75,7 +95,25 @@ Với cờ là 1, kernel sẽ luôn cấp phát thêm bộ nhớ khi ứng dụn
 Với cờ là 2, kernel sẽ không bao giờ overcommit bộ nhớ.
 Trong nhiều trường hợp, tính năng này sẽ rất hữu dụng vì sẽ có nhiều ứng dụng yêu cầu cấp lượng bộ nhớ nhiều hơn cần thiết.
 ```
+```
 vm.overcommit_ratio = 50
 Nếu cờ của vm.overcommit_memory là 2 thì tổng bộ nhớ mà kernel được cấp phát cho các ứng dụng là: Swap Space + vm.overcommit_ratio * RAM Memory
 ```
+Network tuning
+```
+net.ipv4.tcp_fin_timeout = 30
+Giảm thời gian chờ ở trạng thái FIN-WAIT-2. Mặc định là 60s.
+```
+```
+Giảm thời gian chờ của cơ chế keep alive
+net.ipv4.tcp_keepalive_time = 120
+net.ipv4.tcp_keepalive_probes = 5
+net.ipv4.tcp_keepalive_intvl = 30
+TCP keep alive là cơ chế xác định các TCP connection còn hoạt động hay không.
+
+Giá trị này mặc định là 7200s (2 giờ), nếu connection không có bất cứ hoạt động nào thì socket sẽ chờ trong thời gian tcp_keepalive_time trước khi gởi đi lần lượt gởi đi 5 gói tin giữ kết nối, mỗi gói tin cách nhau 15s.
+
+Tổng cộng lại, ứng dụng sẽ biết được một kết nối TCP có còn hoạt động hay không sau 270s (120s + 30s + 30s + 30s + 30s + 30s)
+```
+
 
